@@ -1,30 +1,43 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:8-alpine' 
-            args '-p 3000:3000' 
-        }
+  agent {
+    docker {
+      args '-p 4000:3000'
+      image 'cypress/base'
     }
-    stages {
-        stage('Install') { 
-            steps {
-                sh 'npm install' 
-            }
-        }
-        stage('Start') { 
-            steps {
-                sh 'npm run start' 
-            }
-        }
-        stage('Test') { 
-            steps {
-                sh 'npm run test:headless' 
-            }
-        }
-        stage('Build') { 
-            steps {
-                sh 'npm run build' 
-            }
-        }
+
+  }
+  stages {
+    stage('Install') {
+      steps {
+        sh '''npm config set registry https://registry.npm.taobao.org 
+
+npm install'''
+      }
     }
+
+    stage('Start') {
+      parallel {
+        stage('Start') {
+          steps {
+            sh 'npm run start'
+          }
+        }
+
+        stage('test') {
+          steps {
+            sh 'npm run test:headless'
+            echo 'zzzzz'
+          }
+        }
+
+      }
+    }
+
+    stage('Build') {
+      steps {
+        sh 'npm run build'
+      }
+    }
+
+  }
 }
