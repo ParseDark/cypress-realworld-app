@@ -1,8 +1,8 @@
 pipeline {
   agent {
     docker {
-      args '-p 4000:3000'
       image 'cypress/base'
+      args '-p 3000:3000'
     }
 
   }
@@ -15,21 +15,9 @@ npm install'''
       }
     }
 
-    stage('Start') {
-      parallel {
-        stage('Start') {
-          steps {
-            sh 'npm run start'
-          }
-        }
-
-        stage('test') {
-          steps {
-            sh 'npm run test:headless'
-            echo 'zzzzz'
-          }
-        }
-
+    stage('Start CI') {
+      steps {
+        sh 'npm run start:ci'
       }
     }
 
