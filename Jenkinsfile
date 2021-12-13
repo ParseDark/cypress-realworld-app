@@ -16,20 +16,8 @@ npm install'''
     }
 
     stage('Start') {
-      parallel {
-        stage('Start') {
-          steps {
-            sh 'npm run start'
-          }
-        }
-
-        stage('test') {
-          steps {
-            sh 'npm run test:headless'
-            echo 'zzzzz'
-          }
-        }
-
+      steps {
+        sh 'npm run start:ci'
       }
     }
 
