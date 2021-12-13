@@ -136,7 +136,7 @@
     "copy:mock:awsexportses5": "ncp scripts/mock-aws-exports-es5.js aws-exports-es5.js",
     "build:aws-exports-es5": "cross-env tsc --skipLibCheck --allowJs --lib 'es5' --module 'commonjs' --target 'es5' --moduleResolution 'node' --outDir . src/aws-exports.js; mv aws-exports.js aws-exports-es5.js",
     "start": "cross-env NODE_ENV=development concurrently yarn:start:react yarn:start:api",
-    "start:ci": "cross-env NODE_ENV=test concurrently yarn:start:react:proxy-server yarn:start:api",
+    "start:ci": "cross-env NODE_ENV=test concurrently yarn:start:react:proxy-server yarn:start:api yarn:test:headless",
     "prestart:ci": "yarn predev:cognito:ci",
     "start:react": "react-scripts -r @cypress/instrument-cra start",
     "start:empty": "cross-env NODE_ENV=development EMPTY_SEED=true concurrently yarn:start:react yarn:start:api:watch",
